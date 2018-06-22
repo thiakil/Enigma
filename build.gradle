@@ -17,9 +17,10 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
 group = 'cuchaz'
-version = '0.11.0'
+version = '0.12.0'
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {
@@ -166,4 +167,25 @@ artifacts {
 // And finally, make the build generate / install the jars.
 build.dependsOn install
 
-apply from: 'https://github.com/FabricMC/fabric-docs/raw/master/gradle/maven.gradle'
+publishing {
+	publications {
+		maven(MavenPublication) {
+			groupId 'enigma-asm'
+			artifactId project.archivesBaseName
+			version project.version
+
+			from components.java
+		}
+	}
+	repositories {
+		maven {
+			url "http://mavenupload.modmuss50.me/"
+			if (project.hasProperty('mavenPass')) {
+				credentials {
+					username 'buildslave'
+					password project.getProperty('mavenPass')
+				}
+			}
+		}
+	}
+}
