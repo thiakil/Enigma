@@ -148,8 +148,7 @@ public class JarIndex {
 
 	public void indexInnerClass(ClassEntry innerEntry, ClassEntry outerEntry) {
 		this.innerClassesByOuter.put(outerEntry, innerEntry);
-		boolean innerWasAdded = this.outerClassesByInner.put(innerEntry, outerEntry) == null;
-		assert (innerWasAdded);
+		this.outerClassesByInner.putIfAbsent(innerEntry, outerEntry);
 	}
 
 	private MethodEntry findBridgedMethod(MethodDefEntry method) {
@@ -385,8 +384,7 @@ public class JarIndex {
 
 	public Set<ClassEntry> getInterfaces(String className) {
 		ClassEntry classEntry = entryPool.getClass(className);
-		Set<ClassEntry> interfaces = new HashSet<>();
-		interfaces.addAll(this.translationIndex.getInterfaces(classEntry));
+		Set<ClassEntry> interfaces = new HashSet<>(this.translationIndex.getInterfaces(classEntry));
 		for (ClassEntry ancestor : this.translationIndex.getAncestry(classEntry)) {
 			interfaces.addAll(this.translationIndex.getInterfaces(ancestor));
 		}
