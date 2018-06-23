@@ -393,7 +393,7 @@ public class Deobfuscator {
 
 
 	public void writeJar(File out, ProgressListener progress) {
-		transformJar(out, progress, createTypeLoader()::createTransformer);
+		transformJar(out, progress, createTypeLoader()::writeTranslatedTo);
 	}
 
 	public void protectifyJar(File out, ProgressListener progress) {
