@@ -31,6 +31,7 @@ public class TranslationSignatureVisitor extends SignatureVisitor {
 		if (!name.startsWith(lastClass+"$")){//todo see if there's a way to base this on whether there were type params or not
 			name = lastClass+"$"+name;
 		}
+		classStack.push(name);
 		String translatedEntry = this.remapper.apply(name);
 		if (translatedEntry.contains("/")){
 			translatedEntry = translatedEntry.substring(translatedEntry.lastIndexOf("/")+1);
