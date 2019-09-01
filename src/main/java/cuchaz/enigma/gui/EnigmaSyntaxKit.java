@@ -34,6 +34,7 @@ public class EnigmaSyntaxKit extends JavaSyntaxKit {
         configuration.put(LineNumbersRuler.PROPERTY_FOREGROUND, Config.getInstance().lineNumbersForeground + "");
         configuration.put(LineNumbersRuler.PROPERTY_CURRENT_BACK, Config.getInstance().lineNumbersSelected + "");
         configuration.put("RightMarginColumn", "999"); //No need to have a right margin, if someone wants it add a config
+        configuration.put("DefaultFont", "Droid Sans Mono-14");
 
         configuration.put("Action.quick-find", "cuchaz.enigma.gui.QuickFindAction, menu F");
     }
